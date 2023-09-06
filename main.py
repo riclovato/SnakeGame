@@ -1,5 +1,7 @@
 import random
 
+import pygame.draw
+
 from configs import *
 
 def gerar_comida():
@@ -10,6 +12,10 @@ def gerar_comida():
 
 def desenhar_comida(tamanho, comida_x, comida_y):
     pygame.draw.rect(tela, verde, [comida_x,comida_y,tamanho,tamanho])
+
+def desenhar_cobra(tamanho, pixels):
+    for pixel in pixels:
+        pygame.draw.rect(tela, branca, [pixel[0], pixel[1],tamanho,tamanho])
 
 
 # Loop infinito
@@ -32,7 +38,19 @@ def rodar_jogo():
                 fim_jogo = True
     # desenhar os objetos do jogo na tela
         #pontuação
+
         #cobra
+        #x e y é a posição atual da cobra
+        pixels.append([x,y])
+        if len(pixels) > tamanho_cobra:
+           #deleta o pixel do "rabo" da cobra
+            del pixels[0]
+       #checa se a cobra ta batendo nela mesma com exceção da cabeça
+        for pixel in pixels[:-1]:
+            if pixel == [x,y]:
+                fim_jogo = True
+        desenhar_cobra(tamanho_quadrado,pixels)
+
         #comida
         desenhar_comida(tamanho_quadrado, comida_x, comida_y)
 
