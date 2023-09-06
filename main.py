@@ -18,6 +18,11 @@ def desenhar_cobra(tamanho, pixels):
         pygame.draw.rect(tela, branca, [pixel[0], pixel[1],tamanho,tamanho])
 
 
+def desenhar_pontuacao(pontuacao):
+    fonte = pygame.font.SysFont("Helvetica", 20)
+    texto = fonte.render(f"Pontos: {pontuacao}",True, vermelha)
+    tela.blit(texto, [1,1])
+
 # Loop infinito
 def rodar_jogo():
     fim_jogo = False
@@ -53,6 +58,7 @@ def rodar_jogo():
 
         #comida
         desenhar_comida(tamanho_quadrado, comida_x, comida_y)
+        desenhar_pontuacao(tamanho_cobra - 1)
 
 
     # criar a lógica de terminar o jogo
